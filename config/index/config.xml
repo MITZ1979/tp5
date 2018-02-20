@@ -1,0 +1,7 @@
+<config>
+    <my_info><!--二级配置-->
+        <my_home>珠海</my_home>
+        <my_job>it</my_job>
+    </my_info>
+    <!--一级配置-->
+</config>
