@@ -18,4 +18,7 @@ return [
         ':name' => ['index/hello', ['method' => 'post']],
     ],
 
-];
+];/*
+use think\Route;
+
+Route::rule('index','index/index/index');*/

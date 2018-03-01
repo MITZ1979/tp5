@@ -7,18 +7,42 @@
  */
 
 namespace app\index\controller;
-
+use app\index\controller\Base;
+use think\Request;
 class User extends Base
 {
 
+
+    /**
+     * @return string
+     * 登录界面
+     */
     public function login()
     {
-        return $this->fetch();
+        return $this->view->fetch();
     }
 
-    public function check()
+    /**
+     * @param Request $request
+     * 登录验证 $this->validate($data, $rule, $msq)
+     */
+    public function checkLogin(Request $request)
     {
-        $data = [
+        /**
+         * 初始返回参数
+         *
+         * 从当前方法返回三个变量
+         * $status:当前状态
+         * $result:提示信息
+         * $data:返回数据
+         * 打包成JSON数据返回前端
+         */
+        $status = 0;
+        $result = '';
+        $data = $request -> param();
+
+        return ['status'=>$status, 'message'=>$result, 'data'=>$data];
+        /*$data = [
             'name'=>'thinkphp',
             'email'=>'thinkphp@qq.com'
         ];
@@ -28,6 +52,7 @@ class User extends Base
         if(!$validate->check($data)){
             dump($validate->getError());
         }
+        */
     }
 
 }
