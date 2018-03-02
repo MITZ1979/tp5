@@ -9,7 +9,7 @@
 namespace app\user\controller;
 
 
-class login
+class Login
 {
     public function index($n=0 ,$m=0)
     {
