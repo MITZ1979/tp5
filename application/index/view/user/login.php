@@ -28,7 +28,7 @@
 </div>
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
-    <form class="form form-horizontal" action="" method="post">
+    <form class="form form-horizontal" action="welcome.php" method="post">
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
@@ -49,7 +49,6 @@
                  onblur="if(this.value==''){this.value='验证码:'}"
                  onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
             <img src="{:captcha_src()}" onclick="this.src='{:captcha_src()}'" id="verify_img" style="width: 110px;height:40px;">
-            <label>换一张</label>
         </div>
       </div>
 
@@ -63,7 +62,7 @@
 
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
-          <input name="" id="login" type="button" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <input name="" id="login" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
           <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
         </div>
       </div>
