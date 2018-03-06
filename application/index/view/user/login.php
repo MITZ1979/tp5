@@ -28,7 +28,7 @@
 </div>
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
-    <form class="form form-horizontal" action="welcome.php" method="post">
+    <form class="form form-horizontal" action="/tp5/public/index.php/index/index/index‘" method="post">
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">

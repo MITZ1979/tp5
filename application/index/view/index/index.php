@@ -62,7 +62,7 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 学生管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="student-list.html" data-title="学生列表" href="javascript:void(0)">学生列表</a></li>
+                    <li><a data-href="/tp5/public/index.php/index/student/student" data-title="学生列表" href="javascript:void(0)">学生列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -72,7 +72,7 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 教师管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="teacher-list.html" data-title="教师列表" href="javascript:void(0)">教师列表</a></li>
+                    <li><a data-href="/tp5/public/index.php/index/teacher/teacher" data-title="教师列表" href="javascript:void(0)">教师列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -82,7 +82,7 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 班级管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="class-list.html" data-title="班级列表" href="javascript:void(0)">班级列表</a></li>
+                    <li><a data-href="/tp5/public/index.php/index/grade/grade" data-title="班级列表" href="javascript:void(0)">班级列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -105,7 +105,7 @@
         <div class="Hui-tabNav-wp">
             <ul id="min_title_list" class="acrossTab cl">
                 <li class="active">
-                    <span title="首页" data-href="welcome.php">首页</span>
+                    <span title="首页" data-href="/tp5/public/index.php/index/index/welcome">首页</span>
                     <em></em></li>
             </ul>
         </div>
@@ -114,15 +114,13 @@
     </div>
     <div id="iframe_box" class="Hui-article">
         <div class="show_iframe">
-            <div style="display:none" class="loading">
-            </div>
             {include file='index/welcome' /}
-            <!--<iframe scrolling="yes" frameborder="0" src="welcome.php">
-
-            </iframe>-->
         </div>
     </div>
 </section>
+
+
+
 
 <div class="contextMenu" id="Huiadminmenu">
     <ul>
@@ -130,7 +128,7 @@
         <li id="closeall">关闭全部 </li>
     </ul>
 </div>
-<!--_footer 作为公共模版分离出去-->
+
 <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="__STATIC__/static/h-ui/js/H-ui.min.js"></script>
@@ -198,8 +196,6 @@
     function member_add(title,url,w,h){
         layer_show(title,url,w,h);
     }
-
-
 </script>
 </body>
 </html>

@@ -7,10 +7,16 @@ class Index extends Base
     {
         $this -> assign("title","教学管理系统");
         $this -> assign("header","教学管理系统");
+
+
         return $this->fetch();
+
     }
-//    public function index()
+//    public function welcome()
 //    {
-//      return dump(\think\Config::get());
+//        //$this->redirect('index/welcome');
+//       // $this->display('index:welcome');
+//        return $this->fetch();
 //    }
+    //return dump(\think\Config::get());
 }
