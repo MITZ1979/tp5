@@ -11,7 +11,6 @@ namespace app\index\controller;
 use app\index\model\User as UserModel;
 use think\Request;
 use think\Session;
-
 class User extends Base
 {
     /**
@@ -91,26 +90,24 @@ class User extends Base
 
     //管理员列表
     public function adminList()
+{
+    $this->view->assign('title','管理员列表');
+    $this->view->assign('keywords','教学管理系统');
+    $this->view->assign('description','管理员页面');
+
+    $this->view->count = UserModel::count();
+    $userName = Session::get('user_info.name');
+    if ($userName == 'admin')//判断当前用户是否为admin用户
     {
-        $this->view->assign('title','管理员列表');
-        $this->view->assign('keywords','教学管理系统');
-        $this->view->assign('description','管理员页面');
-
-        $this->view->count = UserModel::count();
-
-        $userName = Session::get('$user_info.name');
-        if ($userName == 'admin')//判断当前用户是否为admin用户
-        {
-            $list = UserModel::all();
-        } else {
-            //非admin只能看自己的信息，数据要经过模型处理器处理
-            $list = UserModel::all(['name' => $userName]);
-        }
-
-        $this->view->assign('list', $list);
-        //渲染模板
-        return $this->view->fetch('user/admin-list');
+        $list = UserModel::all();
+    } else {
+        //非admin只能看自己的信息，数据要经过模型处理器处理
+        $list = UserModel::all(['name' => $userName]);
     }
+    $this->view->assign('list', $list);
+    //渲染模板
+    return $this->view->fetch('user/admin-list');
+}
 
     //管理员状态变更
     public function setStatus(Request $request)
