@@ -26,13 +26,13 @@
 <body>
 <nav class="breadcrumb">管理员信息<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<!--<div class="text-c"> 日期范围：
+	<div class="text-c"> 日期范围：
 		<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;">
 		-
 		<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="">
 		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
-	</div>-->
+	</div>
     {eq name="$Think.session.user_info.name" value="admin"}
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
@@ -96,7 +96,7 @@
                 {/eq}
         </tr>
         {/volist}
-        <tr class="text-c">
+       <!-- <tr class="text-c">
         <th width="40">1</th>
             <th width="150">admin</th>
             <th width="100">admin@qq.com</th>
@@ -115,7 +115,7 @@
             <td  width="130">2018-2-11 11:30:12</td>
             <td class="user-status"><span class="label label-success">已启用</span></td>
             <td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.html','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-        </tr>
+        </tr>-->
 
         </tbody>
     </table>
