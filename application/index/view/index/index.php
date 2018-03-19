@@ -23,9 +23,9 @@
     <script type="text/javascript" src="__STATIC__/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>教学管理系统</title>
-    <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-    <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+    <title>{$title|default='页面标题'}</title>
+    <meta name="keywords" content="{$keywords|default='页面关键字'}>
+    <meta name="description" content="{$description|default='页面描述'}"/>
 </head>
 <body>
 <header class="navbar-wrapper">
@@ -36,11 +36,12 @@
                 <ul class="cl">
                     <li>管理员</li>
                     <li class="dropDown dropDown_hover">
-                        <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <a href="#" class="dropDown_A">{:session('user_info.name')}<i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a href="#">退出</a></li>
+                            <li><a href="{:url('user/logout')}">退出</a></li>
                         </ul>
                     </li>
+
                     <li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
@@ -51,6 +52,7 @@
                             <li><a href="javascript:;" data-val="orange" title="橙色">橙色</a></li>
                         </ul>
                     </li>
+
                 </ul>
             </nav>
         </div>
@@ -62,7 +64,7 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 学生管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="/tp5/public/index.php/index/student/student" data-title="学生列表" href="javascript:void(0)">学生列表</a></li>
+                    <li><a data-href="{:url('student/student')}" data-title="学生列表" href="javascript:void(0)">学生列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -72,7 +74,7 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 教师管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="/tp5/public/index.php/index/teacher/teacher" data-title="教师列表" href="javascript:void(0)">教师列表</a></li>
+                    <li><a data-href="{:url('teacher/teacher')}" data-title="教师列表" href="javascript:void(0)">教师列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -82,7 +84,7 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 班级管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="/tp5/public/index.php/index/grade/grade" data-title="班级列表" href="javascript:void(0)">班级列表</a></li>
+                    <li><a data-href="{:url('gradea/gradea')}" data-title="班级列表" href="javascript:void(0)">班级列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -92,7 +94,7 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+                    <li><a data-href="{:url('user/adminList')}" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -105,7 +107,7 @@
         <div class="Hui-tabNav-wp">
             <ul id="min_title_list" class="acrossTab cl">
                 <li class="active">
-                    <span title="首页" data-href="/tp5/public/index.php/index/index/welcome">首页</span>
+                    <span title="首页" data-href="{:url('index/welcome')}">首页</span>
                     <em></em></li>
             </ul>
         </div>
@@ -152,21 +154,22 @@
             }
         });
     });
+
     /*个人信息*/
-    function myselfinfo(){
+    function myselfinfo() {
         layer.open({
             type: 1,
-            area: ['300px','200px'],
+            area: ['300px', '200px'],
             fix: false, //不固定
             maxmin: true,
-            shade:0.4,
+            shade: 0.4,
             title: '查看信息',
             content: '<div>管理员信息</div>'
         });
     }
 
     /*资讯-添加*/
-    function article_add(title,url){
+    function article_add(title, url) {
         var index = layer.open({
             type: 2,
             title: title,
@@ -174,8 +177,9 @@
         });
         layer.full(index);
     }
+
     /*图片-添加*/
-    function picture_add(title,url){
+    function picture_add(title, url) {
         var index = layer.open({
             type: 2,
             title: title,
@@ -183,8 +187,9 @@
         });
         layer.full(index);
     }
+
     /*产品-添加*/
-    function product_add(title,url){
+    function product_add(title, url) {
         var index = layer.open({
             type: 2,
             title: title,
@@ -192,9 +197,10 @@
         });
         layer.full(index);
     }
+
     /*用户-添加*/
-    function member_add(title,url,w,h){
-        layer_show(title,url,w,h);
+    function member_add(title, url, w, h) {
+        layer_show(title, url, w, h);
     }
 </script>
 </body>
