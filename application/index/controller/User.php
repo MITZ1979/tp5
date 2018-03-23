@@ -115,10 +115,11 @@ class User extends Base
         $user_id = $request->param('id');
         $result = UserModel::get($user_id);
         if ($result->getData('status') == 1) {
-            UserModel::update(['status' => 0, ['id' => $user_id]]);
+            UserModel::update(['status' => 0], ['id' => $user_id]);
         } else {
             UserModel::update(['status' => 1], ['id' => $user_id]);
         }
+        return $this->view->fetch('user/admin-list');
     }
 
     public function adminEdit(Request $request)

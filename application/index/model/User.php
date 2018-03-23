@@ -41,7 +41,7 @@ class User extends Model
     protected $dateFormat = 'Y年m月d日';
 
     //数据表中角色：role返回处理值
-    protected function getRoleAttr($value)
+    public function getRoleAttr($value)
     {
         $role=[
             0 =>'管理员',
@@ -50,7 +50,7 @@ class User extends Model
         return $role[$value];
     }
     //状态字段：status返回处理值
-    protected function getStatusAttr($value)
+    public function getStatusAttr($value)
     {
         $status=[
             0=>'已停用',

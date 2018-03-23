@@ -60,8 +60,8 @@
             <th width="100">操作</th>
         </tr>
         </thead>
-        <tbody>
         {volist name="list" id="vo"}
+        <tbody>
         <tr class="text-c">
             <td>{$vo.id}</td>
             <td>{$vo.name}</td>
@@ -79,45 +79,26 @@
             <td class="td-manage">
                 <!--切换启用与禁用图标-->
                 <!--只允许admin有权限线启用或禁用-->
-                {eq name="$Think.user_info.name" value="admin" }
+                {eq name="$Think.session.user_info.name" value="admin" }
                 {if condition="$vo.status eq '已启用'"}
-                <a style="text-decoration:none" onClick="admin_stop(this,{$vo.id})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
-                {else/}
-                <a style="text-decoration:none" onClick="admin_start(this,{$vo.id})" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe631;</i></a><a style="text-decoration:none" onClick="admin_stop(this,{$vo.id})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
+                    <a style="text-decoration:none" onClick="admin_stop(this,{$vo.id})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
+                {else /}
+                    <a style="text-decoration:none" onClick="admin_start(this,{$vo.id})" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe631;</i></a>
                 {/if}
                 {/eq}
 
-                <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{:url("user/adminEdit",["id"=>$vo["id"]])}','1','800','500'） class="ml-5" style="text-decoration:none">
+                <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{:url("user/adminEdit",["id"=>$vo["id"]])}','800','500'） class="ml-5" style="text-decoration:none">
                 <i class="Hui-iconfont">&#xe6df;</i></a>
-                {eq name="$Think.user_info.name" value="admin"}
+                {eq name="$Think.session.user_info.name" value="admin"}
                 <a title="删除" href="javascript:;" onclick="admin_del(this,{$vo.id})" class="ml-5" style="text-decoration:none">
                     <i class="Hui-iconfont">&#xe6e2;</i></a>
-            </td>
                 {/eq}
+            </td>
+
         </tr>
-        {/volist}
-       <!-- <tr class="text-c">
-        <th width="40">1</th>
-            <th width="150">admin</th>
-            <th width="100">admin@qq.com</th>
-            <th width="50">1</th>
-            <th width="130">6</th>
-        <td  width="130">2018-2-11 11:11:42</td>
-        <td class="user-status"><span class="label label-success">已启用</span></td>
-            <td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.html','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-        </tr>
-        <tr class="text-c">
-            <th width="40">2</th>
-            <th width="150">zhangsan</th>
-            <th width="100">zhangsan@qq.com</th>
-            <th width="50">1</th>
-            <th width="130">2</th>
-            <td  width="130">2018-2-11 11:30:12</td>
-            <td class="user-status"><span class="label label-success">已启用</span></td>
-            <td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.html','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-        </tr>-->
 
         </tbody>
+        {/volist}
     </table>
 </div>
 <!--_footer 作为公共模版分离出去-->
