@@ -33,7 +33,7 @@ class User extends Model
 
     protected $autoWriteTimestamp = true;//自动写入时间
 
-    protected $createtime = 'create_time';
+    protected $createTime = 'create_time';
 
     protected $updateTime = 'update_time';
 
