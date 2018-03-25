@@ -13,12 +13,12 @@ class Index extends Base
         $this->assign("header", "教学管理系统");
         return $this->view->fetch();
     }
-
+/*
     public function db()
     {
         $result= Db::query('select * from 表名');
 
         return dump($result);
-    }
+    }*/
 
 }

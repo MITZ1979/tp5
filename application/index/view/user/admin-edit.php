@@ -23,7 +23,7 @@
   </head>
 <body>
   <article class="cl pd-20">
-    <form action="" method="post" class="form form-horizontal" id="form-admin-edit">
+    <form action="/tp5/public/index.php/index/user/editUser" method="post" class="form form-horizontal" id="form-admin-edit">
       <div class="row cl">
           <label class="form-label col-xs-4 col-sm-3"><span class="c-red">管理员:</span></label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -103,9 +103,9 @@
                 type: 'POST',
                 url: "{:url('user/editUser')}",
                 data: $('#form-admin-add').serialize(),
-                dataTpye: "json",
+                dataType: "json",
                 success: function (data) {
-                    if (data.status==1){
+                    if (data.status ===1){
                         alert(data.message);
                     }else {
                         alert(data.message);

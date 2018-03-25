@@ -25,7 +25,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="addUser" method="post" class="form form-horizontal" id="form-admin-add">
+	<form action="/" method="post" class="form form-horizontal" id="form-admin-add">
 
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>

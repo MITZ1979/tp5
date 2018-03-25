@@ -138,6 +138,7 @@ class User extends Base
     {
         //获取表单返回的数据
         $param =$request->param();
+        $data = $request->param();
         foreach ($param as $key => $value ){
             if (!empty($value)){
                 $data[$key]=$value;
@@ -150,9 +151,9 @@ class User extends Base
             Session::set('user_info.role',$data['role']);
         }
         if (true == $result){
-            return ['status'=>1,  'message'=>'更新成功'];
+            return ['status'=>1,'message'=>'更新成功'];
         }else{
-            return ['status'=>0, 'message'=>'更新失败,请检查'];
+            return ['status'=>0,'message'=>'更新失败,请检查'];
         }
     }
 
@@ -216,12 +217,9 @@ class User extends Base
             $user = UserModel::create($request->param());
             if($user===null){
                 $status=0;
-                $message='添加失败！！！';
+                $message= '添加失败！！！';
             }
         }
-        echo "-----------";
-        print_r($result);
-        echo "eeeeeeeee";
         return ['status'=>$status,'message'=>$message];
     }
 }
