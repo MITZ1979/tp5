@@ -9,21 +9,20 @@
 namespace app\index\model;
 
 use think\Model;
-use think\Request;
 use traits\model\SoftDelete;
 
 class User extends Model
 {
-    //导入软删除
+    //导入软删除方法集
     use SoftDelete;
-
+    //设置软删除字段
+    //只有该字段为NULL，该字段才会显示出来
     protected $deleteTime = 'delete_time';
     //保存自动完成列表
     protected $auto = [
-        'delete_time' => Null,
+        'delete_time' => NULL,
         'is_delete' => 1, //1:允许删除 0:禁止删除
     ];
-
     //新增自动完成列表
     protected $insert = [
         'login_time'=>NULL,//新增登录时间为NULL，因为刚创建
@@ -34,7 +33,7 @@ class User extends Model
 
     protected $autoWriteTimestamp = true;//自动写入时间
 
-    protected $createTime = 'create_time';
+    protected $createtime = 'create_time';
 
     protected $updateTime = 'update_time';
 

@@ -26,18 +26,11 @@
 <body>
 <nav class="breadcrumb">管理员信息<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="text-c"> 日期范围：
-		<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;">
-		-
-		<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="">
-		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
-	</div>
     {eq name="$Think.session.user_info.name" value="admin"}
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
             <a href="javascript:;" onclick="unDelete()" class="btn btn-danger radius">
-                <i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
+                <i class="Hui-iconfont">&#xe6e2;</i>批量恢复</a>
             <a href="javascript:;" onclick="admin_add('添加管理员','{:url("user/adminAdd")}','800','500')" class="btn btn-primary radius">
             <i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span>
         <span class="r">共有数据：<strong>{$count}</strong> 条</span>
@@ -87,7 +80,7 @@
                 {/if}
                 {/eq}
 
-                <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{:url("user/adminEdit",["id"=>$vo["id"]])}','800','500'） class="ml-5" style="text-decoration:none">
+                <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{:url("user/adminEdit",['id'=>$vo["id"]])}','1','800','500')" class="ml-5" style="text-decoration:none">
                 <i class="Hui-iconfont">&#xe6df;</i></a>
                 {eq name="$Think.session.user_info.name" value="admin"}
                 <a title="删除" href="javascript:;" onclick="admin_del(this,{$vo.id})" class="ml-5" style="text-decoration:none">
@@ -139,7 +132,7 @@
     /*管理员-编辑*/
     function admin_edit(title, url, id, w, h) {
         $.get(url, {id: id});//控制器中的编辑方法
-        layer_show(title, url, w, h);
+        layer_show( title,url, w, h);
     }
 
     /*管理员-停用*/

@@ -130,7 +130,7 @@ class User extends Base
         $this->view->assign("keywords", "教学管理系统");
 
         $this->view ->assign('user_info',$result->getData());
-        return $this->view->fetch('admin_edit');
+        return $this->view->fetch('admin-edit');
     }
 
     //更新数据
@@ -145,10 +145,11 @@ class User extends Base
         }
         $condition = ['id'=>$data['id']];
         $result = UserModel::update($data,$condition);
+
         if (Session::get('user_info.name')=='admin'){
             Session::set('user_info.role',$data['role']);
         }
-        if (ture == $result){
+        if (true == $result){
             return ['status'=>1,  'message'=>'更新成功'];
         }else{
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -167,20 +168,21 @@ class User extends Base
         UserModel::update(['delete_time'=>NULL],['is_delete'=>1]);
     }
 
-    public function adminAdd()
+    public function adminAdd(Request $request)
     {
         $this->view->assign('title','添加管理员');
         $this->view->assign('keywords','教学管理系统');
+
         return $this->view->fetch('admin-add');
     }
 
     public function checkUserName(Request $request)
     {
-        $userName = tirm($request->param('name'));
+        $userName = trim($request->param('name'));
         $status=1;
         $message = '用户名可用';
         if (UserModel::get(['name'=>$userName])){
-            $status = 1;
+            $status = 0;
             $message = '用户名重复，请重新输入！！';
         }
         return ['status'=>$status,'message'=>$message];
@@ -188,16 +190,16 @@ class User extends Base
 
     public function checkUserEmail(Request $request)
     {
-        $userEmail = tirm($request->param('email'));
+        $userEmail = trim($request->param('email'));
         $status=1;
         $message = '邮箱可用';
         if (UserModel::get(['email'=>$userEmail])){
-            $status = 1;
+            $status = 0;
             $message = '邮箱重复，请重新输入！！';
         }
         return ['status'=>$status,'message'=>$message];
     }
-
+    //添加用户
     public function addUser(Request $request)
     {
         $data = $request->param();
@@ -205,18 +207,21 @@ class User extends Base
         $message = '添加成功';
 
         $rule = [
-            'name|用户名'=>"request|min:3|max:10",
-            'password|密码'=>"request|min:3|max:10",
-            'email|邮箱'=>"request|eamil"
+            'name|用户名'=>"require|min:3|max:10",
+            'password|密码'=>"require|min:3|max:10",
+            'email|邮箱'=>"require|email"
         ];
         $result = $this->validate($data,$rule);
         if ($result === true){
-            $user = UserModel::create($request->$rule);
+            $user = UserModel::create($request->param());
             if($user===null){
                 $status=0;
                 $message='添加失败！！！';
             }
         }
+        echo "-----------";
+        print_r($result);
+        echo "eeeeeeeee";
         return ['status'=>$status,'message'=>$message];
     }
 }

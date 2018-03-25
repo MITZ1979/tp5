@@ -25,12 +25,12 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-admin-add">
+	<form action="addUser" method="post" class="form form-horizontal" id="form-admin-add">
 
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+			<input type="text" class="input-text" id="name" name="name">
 		</div>
 	</div>
 
@@ -88,18 +88,19 @@
 <script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
 $(function(){
+    //防止用户无更新提交，只有表中用户更新了才提交
     $("form").children().change(function () {
         $("#submit").removeClass('disable');
     });
-
+    //失去焦点，检查用户名是否重复
 	$('#name').blur(function () {
         $.ajax({
-            tpye:'GET',
+            type:'GET',
             url:"checkUserName",
             data:{name:$(this).val()},
             dataType:'json',
             success: function (data) {
-                if (data.status==1){
+                if ( data.status == 1){
                     alert(data.message);
                 }else {
                     alert(data.message);
@@ -107,11 +108,11 @@ $(function(){
             }
         });
     });
-	
+	//失去焦点，检查邮箱是否重复
 	$("#email").blur(function () {
         $.ajax({
             type:'GET',
-            url:"checkUserEamil",
+            url:"checkUserEmail",
             dataType:'json',
             data:{email:$(this).val()},
             success:function (data) {
@@ -123,7 +124,7 @@ $(function(){
             }
         });
     });
-
+    //
 	$("#submit").on("click",function (event) {
         $.ajax({
             type:"POST",
