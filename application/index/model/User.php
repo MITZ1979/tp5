@@ -30,15 +30,10 @@ class User extends Model
     ];
     //更新自动完成列表
     protected $update = [];
-
     protected $autoWriteTimestamp = true;//自动写入时间
-
     protected $createTime = 'create_time';
-
     protected $updateTime = 'update_time';
-
     protected $dateFormat = 'Y年m月d日';
-
     //数据表中角色：role返回处理值
     public function getRoleAttr($value)
     {
@@ -67,5 +62,4 @@ class User extends Model
     {
         return date('Y/m/d H:i',$value);
     }
-
 }

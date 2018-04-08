@@ -16,8 +16,17 @@ class User extends Validate
 {
     protected $rule = [
         'name' => 'require'
+        //,
+        //'password'=>'require',
     ];
     protected $msg = [
-        'name' => ['require' => '此选项必须填写~']
+        'name' => ['require' => '此选项必须填写~'],
+        //'password'=>['require'=>'必须写'],
+       // 'verify'=>['require'=>'请输入正确']
     ];
+//    $validate = Loader::validate('User');
+//
+//    if(!$validate->check($data)){
+//        dump($validate->getError());
+//    }
 }

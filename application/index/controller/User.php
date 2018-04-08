@@ -41,11 +41,10 @@ class User extends Base
         $status = 0;
         $result = '登录失败';
         $data = $request->param();
-
         $rule = [
             'name|姓名' => 'require',
             'password|密码' => 'require',
-            'verify|验证码' => 'require|captcha',
+            'captcha|验证码' => 'require|captcha',
         ];
         //自定义验证失败提示信息
         $msg = [
@@ -54,7 +53,7 @@ class User extends Base
             'verify' => ['验证码不能为空,请输入！']
         ];
         //进行验证
-        $result = $this->validate($rule, $data, $msg);
+        $result = $this->validate($rule, $data);
         if (true === $result) {
             //
             $map = [
@@ -63,9 +62,9 @@ class User extends Base
             ];
             //查询用户信息
             $user = UserModel::get($map);
-            if ($user == null) {
+            if ($user === null) {
                 $result = '没有找到该用户';
-            } else {
+            } else{
                 $status = 1;
                 $result = '验证通过,点击【确定】进入';
                 //用来检测用户登陆状态和防止重复登陆
@@ -78,16 +77,13 @@ class User extends Base
         return ['status' => $status, 'message' => $result, 'data' => $data];
     }
 
-    //退出登陆
     public function logout()
     {
-        //注销登陆
         UserModel::update(['login_time'=>time()],['id'=>Session::get('user_id')]);
         Session::delete('user_id');
         Session::delete('user_info');
         $this->success('注销登陆，正在返回', 'user/login');
     }
-
     //管理员列表
     public function adminList()
 {
@@ -139,22 +135,26 @@ class User extends Base
         //获取表单返回的数据
         $param =$request->param();
         $data = $request->param();
+        $password = $request->password = md5('password');
         foreach ($param as $key => $value ){
             if (!empty($value)){
                 $data[$key]=$value;
             }
         }
         $condition = ['id'=>$data['id']];
-        $result = UserModel::update($data,$condition);
+        $result = UserModel::update($data,$password,$condition);
 
         if (Session::get('user_info.name')=='admin'){
             Session::set('user_info.role',$data['role']);
         }
         if (true == $result){
-            return ['status'=>1,'message'=>'更新成功'];
+            $status=1;
+            $message='更新成功';
         }else{
-            return ['status'=>0,'message'=>'更新失败,请检查'];
+            $status=0;
+            $message='更新失败,请检查';
         }
+         return "<html style='width: 300px;height:100px;margin: auto;'><h1> $message</h1></html>";
     }
 
     public function deleteUser(Request $request)
@@ -213,13 +213,13 @@ class User extends Base
             'email|邮箱'=>"require|email"
         ];
         $result = $this->validate($data,$rule);
-        if ($result === true){
+        if ($result == true){
             $user = UserModel::create($request->param());
-            if($user===null){
+            if($user==null){
                 $status=0;
                 $message= '添加失败！！！';
             }
         }
-        return ['status'=>$status,'message'=>$message];
+        return "<html style='width: 300px;height:100px;margin: auto;'><h1> $message</h1></html>";
     }
 }

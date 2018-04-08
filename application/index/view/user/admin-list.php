@@ -93,6 +93,7 @@
         </tbody>
         {/volist}
     </table>
+
 </div>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.min.js"></script>

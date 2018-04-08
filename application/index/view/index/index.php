@@ -84,7 +84,7 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 班级管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="{:url('gradea/gradea')}" data-title="班级列表" href="javascript:void(0)">班级列表</a></li>
+                    <li><a data-href="{:url('grade/gradeList')}" data-title="班级列表" href="javascript:void(0)">班级列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -168,15 +168,6 @@
         });
     }
 
-    /*资讯-添加*/
-    function article_add(title, url) {
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
 
     /*图片-添加*/
     function picture_add(title, url) {
@@ -187,17 +178,6 @@
         });
         layer.full(index);
     }
-
-    /*产品-添加*/
-    function product_add(title, url) {
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
-
     /*用户-添加*/
     function member_add(title, url, w, h) {
         layer_show(title, url, w, h);

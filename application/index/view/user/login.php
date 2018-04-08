@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <script type="text/javascript" src="__STATIC__/lib/html5shiv.js"></script>
     <script type="text/javascript" src="__STATIC__/lib/respond.min.js"></script>
@@ -75,11 +74,11 @@
 </div>
 <div class="footer">Copyright 南方IT学院</div>
 <script>
-     /*添加提交表带（AJAX）*/
+    /*添加提交表带（AJAX）*/
     $("#login").on('click', function (event) {
         $.ajax({
             Type: "POST",                    //提交方式为POST
-            url: "{:url('checkLogin')}",   //设置提交数据的脚本地址
+            url: "{:url('user/checkLogin')}",   //设置提交数据的脚本地址
             data: $("form").serialize(),    //将当前的数据序列化之后在提交数据
             dataType: 'json',               //设置提交的数据的类型为json
             success: function (data) {       //只有返回标志位为1，才进行处理

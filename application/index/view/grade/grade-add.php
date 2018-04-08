@@ -19,55 +19,47 @@
 <script type="text/javascript" src="__STATIC__/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>添加管理员</title>
+<title>添加班级</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 </head>
 <body>
 <article class="page-container">
-	<form action="/tp5/public/index.php/index/user/addUser" method="post" class="form form-horizontal" id="form-admin-add">
+	<form action="/tp5/public/index.php/index/grade/addGrade" method="post" class="form form-horizontal" id="form-grade-add">
 
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>班级：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" id="name" name="name">
+			<input type="text" class="input-text" placeholder="班级名称" id="name" name="name">
+		</div>
+	</div>
+
+    <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学制：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" autocomplete="off" placeholder="学制" id="length" name="length">
+            </div>
+    </div>
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学费：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" autocomplete="off" placeholder="学费" id="price" name="price">
 		</div>
 	</div>
 
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户密码：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码为6位" id="password" name="password">
-		</div>
-	</div>
-
-	<div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"></span>启用状态：</label>
-		<div class="formControls col-xs-8 col-sm-9"><span class="select-box" style="width: 150px;">
+        <label class="form-label col-xs-4 col-sm-3"></span>启用状态：</label>
+        <div class="formControls col-xs-8 col-sm-9"><span class="select-box" style="width: 150px;">
                 <select class="select" name="status" size="1">
                     <option value="1" selected>启用</option>
                     <option value="0">不启用</option>
                 </select>
             </span>
-		</div>
-	</div>
-
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" placeholder="@" name="email" id="email">
-            </div>
         </div>
-
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">角色：</label>
-		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="role" size="1">
-				<option value="0" selected>管理员</option>
-				<option value="1">超级管理员</option>
-			</select>
-			</span> </div>
 	</div>
+
+
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -92,44 +84,12 @@ $(function(){
     $("form").children().change(function () {
         $("#submit").removeClass('disable');
     });
-    //失去焦点，检查用户名是否重复
-	$('#name').blur(function () {
-        $.ajax({
-            type:'GET',
-            url:"checkUserName",
-            data:{name:$(this).val()},
-            dataType:'json',
-            success: function (data) {
-                if ( data.status == 1){
-                    alert(data.message);
-                }else {
-                    alert(data.message);
-                }
-            }
-        });
-    });
-	//失去焦点，检查邮箱是否重复
-	$("#email").blur(function () {
-        $.ajax({
-            type:'GET',
-            url:"checkUserEmail",
-            dataType:'json',
-            data:{email:$(this).val()},
-            success:function (data) {
-                if (data.status==1){
-                    alert(data.message);
-                }else {
-                    alert(data.message);
-                }
-            }
-        });
-    });
-    //
+
 	$("#submit").on("click",function (event) {
         $.ajax({
             type:"POST",
-            url:"{:url('user/addUser')}",
-            data:$("#form-admin-add").serialize(),
+            url:"{:url('Grade/addGrade')}",
+            data:$("#form-grade-add").serialize(),
             dataType:"json",
             success: function (data) {
                 if (data.status==1){

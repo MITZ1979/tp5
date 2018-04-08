@@ -7,14 +7,17 @@
  */
 
 namespace app\index\controller;
-
+use app\index\model\Teacher as TeacherModel;
+use think\Request;
 
 class Teacher extends Base
 {
     public function teacher()
     {
-        // $this->redirect('teacher/teacher');
-        $this->display('teacher:teacher');
-        return $this->fetch();
+        $list=TeacherModel::all();
+        $this->view->count=TeacherModel::count();
+        $this->view->assign('list',$list);
+        return $this->view->fetch();
     }
+
 }

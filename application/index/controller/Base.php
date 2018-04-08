@@ -21,7 +21,7 @@ class Base extends Controller
         parent::_initialize();
         //判断用户是否登录，用户登录则获取用户id，用户未登录则为空则跳到isLogin()
         define('USER_ID', Session::has('user_id')? Session::get('user_id') : null);
-
+       // define('GRADE_ID',Session::has('grade_id')? Session::get('grade_id') : null);
     }
 
     //判断用户是否登陆,放在系统后台入口前面: index/index
