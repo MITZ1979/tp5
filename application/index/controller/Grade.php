@@ -70,13 +70,16 @@ class Grade extends Base
     //删除班级的方法
     public function gradeDel(Request $request)
     {
-//        $grade_id = $request->param('id');
-//        GradeModel::update(['id_delete' =>1],['id' => $grade_id]);
-//        GradeModel::destroy($grade_id);
         $user_id = $request -> param('id');
         GradeModel::update(['is_delete'=>1],['id'=> $user_id]);
         GradeModel::destroy($user_id);
     }
+    // 恢复删除
+    public function gradeDelete()
+    {
+        GradeModel::update(['delete_time' =>NULL], ['is_delete'=>1]);
+    }
+
 
     // 停用班级的方法
     public function setStatus(Request $request)
@@ -126,10 +129,5 @@ class Grade extends Base
 
     }
 
-    // 恢复删除
-    protected function unDelete()
-    {
-        GradeModel::update(['delete_time' =>NULL], ['is_delete'=>1]);
-    }
 
 }
