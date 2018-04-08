@@ -124,10 +124,16 @@ class Grade extends Base
         //检测更新结果,将结果返回给grade_edit模板中的ajax提交回调处理
         if (true==$result){
             $status=1;
-
+            $message='更新成功！';
         }
-
+        return ['status'=>$status,'message'=>$message];
     }
-
+    //分页paginate
+    public function paginate()
+    {
+        $list = GradeModel::where('status',1)->paginate(12);
+        $this->assign('gradeList',$list);
+        return $this->fetch('grade/grade_list');
+    }
 
 }
