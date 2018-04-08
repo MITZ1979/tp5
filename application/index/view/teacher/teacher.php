@@ -28,22 +28,21 @@
 <div class="pd-20">
   <div class="cl pd-5 bg-1 bk-gray mt-20">
     <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i> 批量删除</a>
-    <a href="javascript:;" onclick="user_add('550','','添加用户','user-add.html')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加用户</a></span>
+    <a href="javascript:;" onclick="teacher_add('添加教师','{:url("teacher/teacherAdd")}','800','510')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加用户</a></span>
     <span class="r">共有数据：<strong>{$count}</strong> 条</span>
   </div>
   <table class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
       <tr class="text-c">
-        <th width="80">ID</th>
-        <th width="100">姓名</th>
-        <th width="40">性别</th>
-        <th width="40">年龄</th>
-        <th width="90">手机</th>
-        <th width="150">邮箱</th>
-        <th width="">地址</th>
-        <th width="130">加入时间</th>
-        <th width="70">状态</th>
-        <th width="100">操作</th>
+        <th >ID</th>
+        <th >姓名</th>
+        <th >学历</th>
+        <th >毕业学校</th>
+        <th >手机号</th>
+        <th >入职时间</th>
+        <th >负责班级</th>
+        <th >状态</th>
+        <th >操作</th>
       </tr>
     </thead>
     <tbody>
@@ -51,13 +50,28 @@
       <tr class="text-c">
         <td>{$vo.id}</td>
         <td>{$vo.name}</td>
-        <td>{$vo.sex}</td>
-        <td>{$vo.age}</td>
+        <td>{$vo.degree}</td>
+        <td>{$vo.school}</td>
         <td>{$vo.mobile}</td>
-        <td class="text-l">北京市 海淀区</td>
-        <td>2014-6-11 11:11:42</td>
-        <td class="user-status"><span class="label label-success">已启用</span></td>
-        <td class="f-14 user-manage"><a style="text-decoration:none" onClick="user_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-hand-down"></i></a> <a title="编辑" href="javascript:;" onclick="user_edit('4','550','','编辑','user-add.html')" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> <a style="text-decoration:none" class="ml-5" onClick="user_password_edit('10001','370','228','修改密码','user-password-edit.html')" href="javascript:;" title="修改密码"><i class="icon-key"></i></a> <a title="删除" href="javascript:;" onclick="user_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+        <td>{$vo.hiredate}</td>
+        <td>{$vo.grade}</td>
+        <td>{$vo.status}</td>
+        <td class="td-status">
+            {if condition='$vo.status eq 1'}
+            <span class="label label-success radius">已启用</span>
+            {else /}
+            <span class="label radius">已停用</span>
+            {/if}
+        </td>
+        <td class="td-manage">
+            {if condition='$vo.status eq 1'}
+            <a style="text-decoration:none" onClick="teach_stop(this,{$vo.id})" href="javascript:;" title="停用"><i class="icon-hand-down">&#xe631;</i></a>
+            {else /}
+            <a title="text-decoration:none" onclick="teach_start(this,{$vo.id})" href="javascript:;" title="启用"><i class="icon-hand-down">&#xe615;</i></a>
+            {/if}
+            <a title="编辑" href="javascript:;" onclick="teach_edit('4','550','','编辑','user-add.html')" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+            <a style="text-decoration:none" class="ml-5" onClick="user_password_edit('10001','370','228','修改密码','user-password-edit.html')" href="javascript:;" title="修改密码"><i class="icon-key"></i></a>
+            <a title="删除" href="javascript:;" onclick="teach_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
       </tr>
     {/volist}
     </tbody>
@@ -97,6 +111,34 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
 	]
 });
+
+//停用的方法
+function teach_stop(obj, id) {
+    layer.confirm('确认要停用吗？', function (index) {
+        $.get("{:url('teacher/setStatus')}", {id: id});
+        $(obj).parents("tr").find(".td-manage").prepend('<a onclick="teach_start(this,id)" href="javascript:;" title="停用"><i class="icon-hand-down">&#xe631;</i></a>');
+        $(obj).parents("tr").find(".td-status").html('<span class="label-default radius">已禁用</span>');
+        $(obj).remove();
+        layer.msg('已停用', {icon: 5, time: 1000});
+    });
+}
+
+//启用的方法
+function teach_start(obj, id){
+    layer.confirm('确认要启用吗？',function (index){
+        $.get("{:url('teacher/setStatus')}", {id:id});
+        $(obj).parents("tr").find(".td-manage").prepend('<a onclick="teach_stop(this,id)" href="javascript:;" title="启用"><i class="icon-hand-down>&#xe631;</i></a>');
+        $(obj).parents("tr").find(".td-status").html('<span class="label-success radius">已启用</span>');
+        $(obj).remove();
+        layer.msg('已启用', {icon:5, time:1000});
+    });
+}
+
+//添加教师的方法
+function teacher_add(title,url,w,h){
+    $.post(url);
+    layer_show(title,url,w,h);
+}
 </script>
 </body>
 </html>
