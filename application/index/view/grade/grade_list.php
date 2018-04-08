@@ -132,7 +132,7 @@
     function unDelete(){
         // 恢复删除
         layer.confirm('确认要恢复吗？', function () {
-            $.get("{:url('grade/unDelete')}");
+            $.get("{:url('grade/gradeDelete')}");
             layer.msg('已恢复！',{icon:1 , time: 1000});
             window.location.reload();
         })
