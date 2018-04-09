@@ -156,7 +156,7 @@ class User extends Base
         }
          return "<html style='width: 300px;height:100px;margin: auto;'><h1> $message</h1></html>";
     }
-
+    //删除
     public function deleteUser(Request $request)
     {
         $user_id = $request->param('id');
@@ -168,7 +168,7 @@ class User extends Base
     {
         UserModel::update(['delete_time'=>NULL],['is_delete'=>1]);
     }
-
+    //添加管理員按鈕
     public function adminAdd(Request $request)
     {
         $this->view->assign('title','添加管理员');
