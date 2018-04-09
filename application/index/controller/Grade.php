@@ -75,7 +75,7 @@ class Grade extends Base
         GradeModel::destroy($user_id);
     }
     // 恢复删除
-    public function gradeDelete()
+    public function gradeUnDelete()
     {
         GradeModel::update(['delete_time' =>NULL], ['is_delete'=>1]);
     }
