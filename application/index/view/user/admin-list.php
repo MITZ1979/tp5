@@ -27,7 +27,7 @@
 <nav class="breadcrumb">管理员信息<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     {eq name="$Think.session.user_info.name" value="admin"}
-    <div class="cl pd-5 bg-1 bk-gray mt-20">
+    <div class="cl pd-5 bg-1 bk-gray mt-1">
         <span class="l">
             <a href="javascript:;" onclick="unDelete()" class="btn btn-danger radius">
                 <i class="Hui-iconfont">&#xe6e2;</i>批量恢复</a>
@@ -36,7 +36,6 @@
         <span class="r">共有数据：<strong>{$count}</strong> 条</span>
     </div>
     {/eq}
-
     <table class="table table-border table-bordered table-bg">
         <thead>
         <tr>
