@@ -70,14 +70,15 @@ class Grade extends Base
     //删除班级的方法
     public function gradeDel(Request $request)
     {
-        $user_id = $request -> param('id');
-        GradeModel::update(['is_delete'=>1],['id'=> $user_id]);
+        $user_id = $request->param('id');
+        GradeModel::update(['is_delete' => 1], ['id' => $user_id]);
         GradeModel::destroy($user_id);
     }
+
     // 恢复删除
     public function gradeUnDelete()
     {
-        GradeModel::update(['delete_time' =>NULL], ['is_delete'=>1]);
+        GradeModel::update(['delete_time' => NULL], ['is_delete' => 1]);
     }
 
 
@@ -110,29 +111,32 @@ class Grade extends Base
         $this->view->assign('grade_info', $result);
         return $this->view->fetch('grade-edit');
     }
+
     // 更新班级的方法
-    public function gradeUpdate(Request $request){
+    public function gradeUpdate(Request $request)
+    {
         //排出表中关联字段teacher
         $data = $request->except('teacher');
         //设置更新条件
-        $condition = ['id'=>$data['id']];
+        $condition = ['id' => $data['id']];
         //更新数据
-        $result=GradeModel::update($data,$condition);
+        $result = GradeModel::update($data, $condition);
         //设置返回类型
         $status = 0;
-        $message='更新失败，请检查';
+        $message = '更新失败，请检查';
         //检测更新结果,将结果返回给grade_edit模板中的ajax提交回调处理
-        if (true==$result){
-            $status=1;
-            $message='更新成功！';
+        if (true == $result) {
+            $status = 1;
+            $message = '更新成功！';
         }
-        return ['status'=>$status,'message'=>$message];
+        return ['status' => $status, 'message' => $message];
     }
+
     //分页paginate
     public function paginate()
     {
-        $list = GradeModel::where('status',1)->paginate(12);
-        $this->assign('gradeList',$list);
+        $list = GradeModel::where('status', 1)->paginate(12);
+        $this->assign('gradeList', $list);
         return $this->fetch('grade/grade_list');
     }
 

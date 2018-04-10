@@ -7,6 +7,7 @@
  */
 
 namespace app\index\model;
+
 use think\Model;
 use traits\model\SoftDelete;
 
@@ -29,7 +30,8 @@ class Grade extends Model
     protected $updateTime = 'update_time';
 
     // 定义自动完成属性
-    protected $insert = ['status'=>1];
+    protected $insert = ['status' => 1];
+
     //定义关联方法
     public function teacher()
     {
@@ -39,7 +41,7 @@ class Grade extends Model
 
     // 定义关联方法
     public function student()
-{
-    return $this->hasMany('student');
-}
+    {
+        return $this->hasMany('student');
+    }
 }

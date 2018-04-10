@@ -22,7 +22,7 @@ class User extends Validate
     protected $msg = [
         'name' => ['require' => '此选项必须填写~'],
         //'password'=>['require'=>'必须写'],
-       // 'verify'=>['require'=>'请输入正确']
+        // 'verify'=>['require'=>'请输入正确']
     ];
 //    $validate = Loader::validate('User');
 //

@@ -11,6 +11,7 @@ namespace app\index\controller;
 use app\index\model\User as UserModel;
 use think\Request;
 use think\Session;
+
 class User extends Base
 {
     /**
@@ -64,14 +65,14 @@ class User extends Base
             $user = UserModel::get($map);
             if ($user === null) {
                 $result = '没有找到该用户';
-            } else{
+            } else {
                 $status = 1;
                 $result = '验证通过,点击【确定】进入';
                 //用来检测用户登陆状态和防止重复登陆
                 Session::set('user_id', $user->id);  //用户id
                 Session::set('user_info', $user->getData()); //获取用户所以信息
                 //更新用户登录次数:自增1
-                $user -> setInc('login_count');
+                $user->setInc('login_count');
             }
         }
         return ['status' => $status, 'message' => $result, 'data' => $data];
@@ -79,31 +80,32 @@ class User extends Base
 
     public function logout()
     {
-        UserModel::update(['login_time'=>time()],['id'=>Session::get('user_id')]);
+        UserModel::update(['login_time' => time()], ['id' => Session::get('user_id')]);
         Session::delete('user_id');
         Session::delete('user_info');
         $this->success('注销登陆，正在返回', 'user/login');
     }
+
     //管理员列表
     public function adminList()
-{
-    $this->view->assign('title','管理员列表');
-    $this->view->assign('keywords','教学管理系统');
-    $this->view->assign('description','管理员页面');
-
-    $this->view->count = UserModel::count();
-    $userName = Session::get('user_info.name');
-    if ($userName == 'admin')//判断当前用户是否为admin用户
     {
-        $list = UserModel::all();
-    } else {
-        //非admin只能看自己的信息，数据要经过模型处理器处理
-        $list = UserModel::all(['name' => $userName]);
+        $this->view->assign('title', '管理员列表');
+        $this->view->assign('keywords', '教学管理系统');
+        $this->view->assign('description', '管理员页面');
+
+        $this->view->count = UserModel::count();
+        $userName = Session::get('user_info.name');
+        if ($userName == 'admin')//判断当前用户是否为admin用户
+        {
+            $list = UserModel::all();
+        } else {
+            //非admin只能看自己的信息，数据要经过模型处理器处理
+            $list = UserModel::all(['name' => $userName]);
+        }
+        $this->view->assign('list', $list);
+        //渲染模板
+        return $this->view->fetch('user/admin-list');
     }
-    $this->view->assign('list', $list);
-    //渲染模板
-    return $this->view->fetch('user/admin-list');
-}
 
     //管理员状态变更
     public function setStatus(Request $request)
@@ -125,7 +127,7 @@ class User extends Base
         $this->view->assign("title", "编辑管理员信息");
         $this->view->assign("keywords", "教学管理系统");
 
-        $this->view ->assign('user_info',$result->getData());
+        $this->view->assign('user_info', $result->getData());
         return $this->view->fetch('admin-edit');
     }
 
@@ -133,46 +135,48 @@ class User extends Base
     public function editUser(Request $request)
     {
         //获取表单返回的数据
-        $param =$request->param();
+        $param = $request->param();
         $data = $request->param();
         $password = $request->password = md5('password');
-        foreach ($param as $key => $value ){
-            if (!empty($value)){
-                $data[$key]=$value;
+        foreach ($param as $key => $value) {
+            if (!empty($value)) {
+                $data[$key] = $value;
             }
         }
-        $condition = ['id'=>$data['id']];
-        $result = UserModel::update($data,$password,$condition);
+        $condition = ['id' => $data['id']];
+        $result = UserModel::update($data, $password, $condition);
 
-        if (Session::get('user_info.name')=='admin'){
-            Session::set('user_info.role',$data['role']);
+        if (Session::get('user_info.name') == 'admin') {
+            Session::set('user_info.role', $data['role']);
         }
-        if (true == $result){
-            $status=1;
-            $message='更新成功';
-        }else{
-            $status=0;
-            $message='更新失败,请检查';
+        if (true == $result) {
+            $status = 1;
+            $message = '更新成功';
+        } else {
+            $status = 0;
+            $message = '更新失败,请检查';
         }
-         return "<html style='width: 300px;height:100px;margin: auto;'><h1> $message</h1></html>";
+        return "<html style='width: 300px;height:100px;margin: auto;'><h1> $message</h1></html>";
     }
+
     //删除
     public function deleteUser(Request $request)
     {
         $user_id = $request->param('id');
-        UserModel::update(['is_delete'=>1],['id'=>$user_id]);
+        UserModel::update(['is_delete' => 1], ['id' => $user_id]);
         UserModel::destroy($user_id);
     }
 
     public function unDelete()
     {
-        UserModel::update(['delete_time'=>NULL],['is_delete'=>1]);
+        UserModel::update(['delete_time' => NULL], ['is_delete' => 1]);
     }
+
     //添加管理員按鈕
     public function adminAdd(Request $request)
     {
-        $this->view->assign('title','添加管理员');
-        $this->view->assign('keywords','教学管理系统');
+        $this->view->assign('title', '添加管理员');
+        $this->view->assign('keywords', '教学管理系统');
 
         return $this->view->fetch('admin-add');
     }
@@ -180,26 +184,27 @@ class User extends Base
     public function checkUserName(Request $request)
     {
         $userName = trim($request->param('name'));
-        $status=1;
+        $status = 1;
         $message = '用户名可用';
-        if (UserModel::get(['name'=>$userName])){
+        if (UserModel::get(['name' => $userName])) {
             $status = 0;
             $message = '用户名重复，请重新输入！！';
         }
-        return ['status'=>$status,'message'=>$message];
+        return ['status' => $status, 'message' => $message];
     }
 
     public function checkUserEmail(Request $request)
     {
         $userEmail = trim($request->param('email'));
-        $status=1;
+        $status = 1;
         $message = '邮箱可用';
-        if (UserModel::get(['email'=>$userEmail])){
+        if (UserModel::get(['email' => $userEmail])) {
             $status = 0;
             $message = '邮箱重复，请重新输入！！';
         }
-        return ['status'=>$status,'message'=>$message];
+        return ['status' => $status, 'message' => $message];
     }
+
     //添加用户
     public function addUser(Request $request)
     {
@@ -208,16 +213,16 @@ class User extends Base
         $message = '添加成功';
 
         $rule = [
-            'name|用户名'=>"require|min:3|max:10",
-            'password|密码'=>"require|min:3|max:10",
-            'email|邮箱'=>"require|email"
+            'name|用户名' => "require|min:3|max:10",
+            'password|密码' => "require|min:3|max:10",
+            'email|邮箱' => "require|email"
         ];
-        $result = $this->validate($data,$rule);
-        if ($result == true){
+        $result = $this->validate($data, $rule);
+        if ($result == true) {
             $user = UserModel::create($request->param());
-            if($user==null){
-                $status=0;
-                $message= '添加失败！！！';
+            if ($user == null) {
+                $status = 0;
+                $message = '添加失败！！！';
             }
         }
         return "<html style='width: 300px;height:100px;margin: auto;'><h1> $message</h1></html>";

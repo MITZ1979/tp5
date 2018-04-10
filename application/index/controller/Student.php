@@ -7,23 +7,24 @@
  */
 
 namespace app\index\controller;
+
 use app\index\model\Student as StudentModel;
 use think\Request;
+
 class Student extends Base
 {
     //查询
     public function student(Request $request)
     {
         $this->view->count = StudentModel::count();
-        $user_id=$request->param('id');
+        $user_id = $request->param('id');
 
         return $this->view->fetch('student:student-list');
     }
 
 
-
     public function unDelete(Request $request)
     {
-        StudentModel::update(['delete_time'=>NULL],['is_delete'=>1]);
+        StudentModel::update(['delete_time' => NULL], ['is_delete' => 1]);
     }
 }

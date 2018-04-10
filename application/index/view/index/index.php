@@ -67,7 +67,7 @@
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 教师管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-                    <li><a data-href="{:url('teacher/teacher')}" data-title="教师列表" href="javascript:void(0)">教师列表</a></li>
+                    <li><a data-href="{:url('teacher/teacherList')}" data-title="教师列表" href="javascript:void(0)">教师列表</a></li>
 			</ul>
 		</dd>
 	</dl>

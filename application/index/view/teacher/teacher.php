@@ -26,8 +26,8 @@
 <body>
 <nav class="breadcrumb">教师信息 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
-  <div class="cl pd-5 bg-1 bk-gray mt-20">
-    <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i> 批量删除</a>
+  <div class="cl pd-5 bg-1 bk-gray mt-1">
+    <span class="l"><a href="javascript:;" onclick="unDelete()" class="btn btn-danger radius"><i class="icon-trash"></i> 批量删除</a>
     <a href="javascript:;" onclick="teacher_add('添加教师','{:url("teacher/teacherAdd")}','800','510')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加用户</a></span>
     <span class="r">共有数据：<strong>{$count}</strong> 条</span>
   </div>
@@ -46,7 +46,7 @@
       </tr>
     </thead>
     <tbody>
-    {volist name='list' id='vo'}
+    {volist name='teacherList' id='vo'}
       <tr class="text-c">
         <td>{$vo.id}</td>
         <td>{$vo.name}</td>
@@ -90,55 +90,66 @@
 <script type="text/javascript" src="__STATIC__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="__STATIC__/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-window.onload = (function(){
-    // optional set
-    pageNav.pre="&lt;上一页";
-    pageNav.next="下一页&gt;";
-    // p,当前页码,pn,总页面
-    pageNav.fn = function(p,pn){$("#pageinfo").text("当前页:"+p+" 总页: "+pn);};
-    //重写分页状态,跳到第三页,总页33页
-    pageNav.go(1,13);
-});
-$('.table-sort').dataTable({
-	"lengthMenu":false,//显示数量选择 
-	"bFilter": false,//过滤功能
-	"bPaginate": false,//翻页信息
-	"bInfo": false,//数量信息
-	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-	"bStateSave": true,//状态保存
-	"aoColumnDefs": [
-	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
-	]
-});
-
-//停用的方法
-function teach_stop(obj, id) {
-    layer.confirm('确认要停用吗？', function (index) {
-        $.get("{:url('teacher/setStatus')}", {id: id});
-        $(obj).parents("tr").find(".td-manage").prepend('<a onclick="teach_start(this,id)" href="javascript:;" title="停用"><i class="icon-hand-down">&#xe631;</i></a>');
-        $(obj).parents("tr").find(".td-status").html('<span class="label-default radius">已禁用</span>');
-        $(obj).remove();
-        layer.msg('已停用', {icon: 5, time: 1000});
+    window.onload = (function () {
+        // optional set
+        pageNav.pre = "&lt;上一页";
+        pageNav.next = "下一页&gt;";
+        // p,当前页码,pn,总页面
+        pageNav.fn = function (p, pn) {
+            $("#pageinfo").text("当前页:" + p + " 总页: " + pn);
+        };
+        //重写分页状态,跳到第三页,总页33页
+        pageNav.go(1, 13);
     });
-}
-
-//启用的方法
-function teach_start(obj, id){
-    layer.confirm('确认要启用吗？',function (index){
-        $.get("{:url('teacher/setStatus')}", {id:id});
-        $(obj).parents("tr").find(".td-manage").prepend('<a onclick="teach_stop(this,id)" href="javascript:;" title="启用"><i class="icon-hand-down>&#xe631;</i></a>');
-        $(obj).parents("tr").find(".td-status").html('<span class="label-success radius">已启用</span>');
-        $(obj).remove();
-        layer.msg('已启用', {icon:5, time:1000});
+    $('.table-sort').dataTable({
+        "lengthMenu": false,//显示数量选择
+        "bFilter": false,//过滤功能
+        "bPaginate": false,//翻页信息
+        "bInfo": false,//数量信息
+        "aaSorting": [[1, "desc"]],//默认第几个排序
+        "bStateSave": true,//状态保存
+        "aoColumnDefs": [
+            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+            {"orderable": false, "aTargets": [0, 8, 9]}// 制定列不参与排序
+        ]
     });
-}
 
-//添加教师的方法
-function teacher_add(title,url,w,h){
-    $.post(url);
-    layer_show(title,url,w,h);
-}
+    //停用的方法
+    function teach_stop(obj, id) {
+        layer.confirm('确认要停用吗？', function (index) {
+            $.get("{:url('teacher/setStatus')}", {id: id});
+            $(obj).parents("tr").find(".td-manage").prepend('<a onclick="teach_start(this,id)" href="javascript:;" title="停用"><i class="icon-hand-down">&#xe631;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label-default radius">已禁用</span>');
+            $(obj).remove();
+            layer.msg('已停用', {icon: 5, time: 1000});
+        });
+    }
+
+    //启用的方法
+    function teach_start(obj, id) {
+        layer.confirm('确认要启用吗？', function (index) {
+            $.get("{:url('teacher/setStatus')}", {id: id});
+            $(obj).parents("tr").find(".td-manage").prepend('<a onclick="teach_stop(this,id)" href="javascript:;" title="启用"><i class="icon-hand-down>&#xe631;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label-success radius">已启用</span>');
+            $(obj).remove();
+            layer.msg('已启用', {icon: 5, time: 1000});
+        });
+    }
+
+    //添加教师的方法
+    function teacher_add(title, url, w, h) {
+        $.post(url);
+        layer_show(title, url, w, h);
+    }
+
+    //批量恢复
+    function unDelete() {
+        layer.confirm('确认要恢复吗？', function (index) {
+            $.get('{:url("teacher/unDelete")}');
+            layer.msg('已恢复！',{icon:1, time:1000});
+            window.location.reload();
+        })
+    }
 </script>
 </body>
 </html>
